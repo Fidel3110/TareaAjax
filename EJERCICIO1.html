@@ -16,7 +16,7 @@ function loadDoc() {
       var rpta=JSON.parse(this.responseText);
       for(var i=0; i<rpta.length;i++){
         var regi = rpta[i].region;
-        console.log(regi);
+        document.writeln(rpta[i].region+'</n>');
       }
     }
   }
