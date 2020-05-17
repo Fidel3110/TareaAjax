@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
-<body>
+<body bgcolor="orange">
 
 <div id="demo">
-<h2>AJAX ESTADISTICAS</h2>
-<button type="button" onclick="loadDoc()">Ver estadisticas</button>
+<h2>REGIONES AFECTADAS POR EL COVID-19</h2>
+<button type="button" onclick="loadDoc()">Ver Regiones</button>
 </div>
 
-<script>
+<script >
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("demo").innerHTML = "Procesando ...";
       var rpta=JSON.parse(this.responseText);
+      document.write("REGIONES AFECTADAS POR EL COVID-19: ");
       for(var i=0; i<rpta.length;i++){
         var regi = rpta[i].region;
-        document.writeln(rpta[i].region+'</n>');
+        document.writeln('\n');
+        document.writeln(rpta[i].region+ " - ");
       }
     }
   }
-  xhttp.open("GET", "data.json", true);
+  xhttp.open("GET", "covid_peru_complete.json", true);
   xhttp.send();
 }
 </script>
