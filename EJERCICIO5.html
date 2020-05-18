@@ -10,33 +10,16 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
-        var data2 = new google.visualization.DataTable();
-        data2.addColumn('string', 'Topping');
-        data2.addColumn('number', 'Slices');
-        data2.addRows([
-          ['kk', 3],
-          ['nn', 1],
-          ['ll', 1],
-          ['ss', 1],
-          ['dd ', 2]
-        ]);
         var piechart_options = {title:'REGION 1',
                        width:400,
                        height:300};
-        var piechart = new google.visualization.BarChart(document.getElementById('piechart_div'));
+        var piechart = new google.visualization.LineChart(document.getElementById('piechart_div'));
         piechart.draw(data, piechart_options);
-        var barchart_options = {title:'REGION 2',
+        var piechart_options = {title:'REGION 2',
                        width:400,
                        height:300,
-                       legend: 'none'};
-      //  var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+                       };
+      var barchart = new google.visualization.LineChart(document.getElementById('barchart_div'));
       //  barchart.draw(data2, barchart_options);
         //AREQUIPA
         var xhttp = new XMLHttpRequest();
@@ -52,6 +35,14 @@
                   var element=[];
                   element[element.length]=confirmed[j].date;
                   element[element.length]= parseInt(confirmed[j].value);
+                  data2=(element[element.length]=confirmed[j].date,
+                  element[element.length]= parseInt(confirmed[j].value));
+                  var barchart = new google.visualization.LineChart(document.getElementById('barchart_div'));
+                  barchart.draw(element, barchart_options);
+                  element = new google.visualization.DataTable();
+                  data2.addColumn('string', 'Topping');
+                  data2.addColumn('number', 'Slices');
+                  data2.addRows(element);
                 }
               }
               console.log(element);
@@ -65,10 +56,16 @@
                 var confirmed= confiApurimac[i].confirmed;
                 for(j in confirmed){
                   var element=[];
+                  element[element.length]=confirmed[j].date;
+                  element[element.length]= parseInt(confirmed[j].value);
                   data2=(element[element.length]=confirmed[j].date,
                   element[element.length]= parseInt(confirmed[j].value));
-                  var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
-                    barchart.draw(data2, barchart_options);
+                  var barchart = new google.visualization.LineChart(document.getElementById('barchart_div'));
+                  barchart.draw(data2, barchart_options);
+                  element = new google.visualization.DataTable();
+                  data2.addColumn('string', 'Topping');
+                  data2.addColumn('number', 'Slices');
+                  data2.addRows(element);
                 }
               }
                 console.log(elemnt);
