@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="demo">
+<h2>REGIONES CON MAYOR POSITIVOS</h2>
+<button type="button" onclick="loadDoc()">Confirmados</button>
+</div>
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = "Procesando ...";
+      var rpta=JSON.parse(this.responseText);
+      var myArray = getArrayLastValue(rpta);
+      myArray.sort(function(a,b){return b.value - a.value});
+      console.log(myArray);
+    }
+  };
+  xhttp.open("GET","covid_peru_complete.json", true);
+  xhttp.send();
+}
+function getArrayLastValue(data){
+  
+}
+</script>
+
+</body>
+</html>
