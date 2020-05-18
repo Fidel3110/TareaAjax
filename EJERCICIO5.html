@@ -17,22 +17,69 @@
           ['Zucchini', 1],
           ['Pepperoni', 2]
         ]);
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Topping');
+        data2.addColumn('number', 'Slices');
+        data2.addRows([
+          ['kk', 3],
+          ['nn', 1],
+          ['ll', 1],
+          ['ss', 1],
+          ['dd ', 2]
+        ]);
         var piechart_options = {title:'REGION 1',
                        width:400,
                        height:300};
         var piechart = new google.visualization.BarChart(document.getElementById('piechart_div'));
         piechart.draw(data, piechart_options);
-
         var barchart_options = {title:'REGION 2',
                        width:400,
                        height:300,
                        legend: 'none'};
-        var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
-        barchart.draw(data, barchart_options);
+      //  var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+      //  barchart.draw(data2, barchart_options);
+        //AREQUIPA
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var confirmados=[];
+            var myArray= JSON.parse(this.responseText);
+            for(i in confirmados){
+              var name=confirmados[i].region;
+              if(name=="Arequipa"){
+                var confirmed= confirmados[i].confirmed;
+                for(j in confirmed){
+                  var element=[];
+                  element[element.length]=confirmed[j].date;
+                  element[element.length]= parseInt(confirmed[j].value);
+                }
+              }
+              console.log(element);
+            }
+            //APURIMAC
+            var confiApurimac=[];
+            var apurimac= JSON.parse(this.responseText);
+            for(i in confiApurimac){
+              var name=confiApurimac[i].region;
+              if(name=="Arequipa"){
+                var confirmed= confiApurimac[i].confirmed;
+                for(j in confirmed){
+                  var element=[];
+                  data2=(element[element.length]=confirmed[j].date,
+                  element[element.length]= parseInt(confirmed[j].value));
+                  var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+                    barchart.draw(data2, barchart_options);
+                }
+              }
+                console.log(elemnt);
+            }
+          }
+          xhttp.open("GET", "covid_peru_complete.json",true);
+          xhttp.send();
+        };
       }
 </script>
 <body>
-    <!--Table and divs that hold the pie charts-->
     <table class="columns">
       <tr>
         <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
