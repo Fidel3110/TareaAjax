@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="demo">
+<h2>REGIONES</h2>
+  ELEGIR DOS REGIONES:
+  <button type="button" onclick="Amazonas()">Amazonas</button>
+  <button type="button" onclick="Ancash()">Ancash</button>
+  <button type="button" onclick="Apurimac()">Apurimac</button>
+  <button type="button" onclick="Arequipa()">Arequipa</button>
+  <button type="button" onclick="Ayacucho()">Ayacucho</button>
+  <button type="button" onclick="Cajamarca()">Cajamarca</button>
+  <button type="button" onclick="Cusco()">Cusco</button>
+  <button type="button" onclick="Huancavelica()">Huancavelica</button>
+  <button type="button" onclick="Huanuco()">Huanuco</button>
+  <button type="button" onclick="Ica()">Ica</button>
+  <button type="button" onclick="Junin()">Junin</button>
+  <button type="button" onclick="laLibertad()">La libertad</button>
+  <button type="button" onclick="Lambayeque()">Lambayeque</button>
+  <button type="button" onclick="Loreto()">Loreto</button>
+  <button type="button" onclick="madreDios()">Madre de Dios</button>
+  <button type="button" onclick="Moquegua()">Moquegua</button>
+  <button type="button" onclick="Pasco()">Pasco</button>
+  <button type="button" onclick="Piura()">Piura</button>
+  <button type="button" onclick="Puno()">Puno</button>
+  <button type="button" onclick="sanMartin()">San Martin</button>
+  <button type="button" onclick="Tacna()">Tacna</button>
+  <button type="button" onclick="Tumbes()">Tumbes</button>
+  <button type="button" onclick="Ucayali()">Ucayali</button>
+</div>
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+var cuadro=0;
+  function region1(nombreRegion){
+    cuadro=1;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var confirmados=[];
+        var myArray= JSON.parse(this.responseText);
+        for(i in confirmados){
+          var name=confirmados[i].region;
+          if(name==nombreRegion){
+            var confirmed= confirmados[i].confirmed;
+            for(j in confirmed){
+              var element=[];
+              element[element.length]=confirmed[j].date;
+              element[element.length]= parseInt(confirmed[j].value);
+              data2=(element[element.length]=confirmed[j].date,
+              element[element.length]= parseInt(confirmed[j].value));
+              var barchart = new google.visualization.LineChart(document.getElementById('barchart_div'));
+              barchart.draw(element, barchart_options);
+              element = new google.visualization.DataTable();
+              data2.addColumn('string', 'Topping');
+              data2.addColumn('number', 'Slices');
+              data2.addRows(element);
+            }
+          }
+          console.log(element);
+        }
+      }
+    }
+  }
+  function region2(nombreRegion){
+    cuadro=2;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var confirmados=[];
+        var myArray= JSON.parse(this.responseText);
+        for(i in confirmados){
+          var name=confirmados[i].region;
+          if(name==nombreRegion){
+            var confirmed= confirmados[i].confirmed;
+            for(j in confirmed){
+              var element=[];
+              element[element.length]=confirmed[j].date;
+              element[element.length]= parseInt(confirmed[j].value);
+              data2=(element[element.length]=confirmed[j].date,
+              element[element.length]= parseInt(confirmed[j].value));
+              var barchart = new google.visualization.LineChart(document.getElementById('barchart_div'));
+              barchart.draw(element, barchart_options);
+              element = new google.visualization.DataTable();
+              data2.addColumn('string', 'Topping');
+              data2.addColumn('number', 'Slices');
+              data2.addRows(element);
+            }
+          }
+          console.log(element);
+        }
+      }
+    }
+  }
+</script>
+</html>
