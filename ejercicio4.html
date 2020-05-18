@@ -17,7 +17,6 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows(confirmados);
-        // Set chart options
         console.log("confirmados: "+ confirmados);
         var options = {'title':'GRAFICO DE BARRAS ',
                        'width':400,
@@ -26,32 +25,41 @@
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-      }
-      function loadDoc() {
+      //function loadDoc() {
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            var confirmados=[];
-            var resp= JSON.parse(this.responseText);
-            for(var i=0;i<resp.length;i++){
-              var registro= [resp[i].region, Number(resp[i].confirmed[resp[i].confirmed.length-1].value)];
-              confirmados.push(registro);
+        if (this.readyState == 4 && this.status == 200) {
+          var confirmados=[];
+          var myArray= JSON.parse(this.responseText);
+          for(i in confirmados){
+            var name=confirmados[i].region;
+            if(name=="Arequipa"){
+              var confirmed= confirmados[i].confirmed;
+              for(j in confirmed){
+                var element=[];
+                element[element.length]=confirmed[j].date;
+                element[element.length]= parseInt(confirmed[j].value);
+                data2=(element[element.length]=confirmed[j].date,
+                element[element.length]= parseInt(confirmed[j].value));
+                var barchart = new google.visualization.LineChart(document.getElementById('barchart_div'));
+                barchart.draw(element, barchart_options);
+                element = new google.visualization.DataTable();
+                data2.addColumn('string', 'Topping');
+                data2.addColumn('number', 'Slices');
+                data2.addRows(element);
+              }
             }
-            //console.log(confirmados);
-            drawChart(confirmados.sort(function(a,b){return a[1] - b[1]}));
-            document.getElementById("chart_div").innerHTML="Procesando...";
-          }
-        };
-        xhttp.open("GET", "covid_peru_complete.json", true);
-        xhttp.send();
+        }
+      }
+      xhttp.open("GET", "covid_peru_complete.json", true);
+      xhttp.send();
       }
     </script>
   </head>
 
   <body>
     <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <div id="demo"></div>
       <h2>REGIONES</h2>
-      <button type="button" onclick="loadDoc()">Confirmados</button>
+      <!--<button type="button" onclick="loadDoc()">Confirmados</button>-->
   </body>
 </html>
