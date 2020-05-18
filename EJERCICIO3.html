@@ -2,7 +2,7 @@
 <html>
 <body>
 <div id="demo">
-<h2>REGIONES CON MAYOR POSITIVOS</h2>
+<h2>REGIONES</h2>
 <button type="button" onclick="loadDoc()">Confirmados</button>
 </div>
 <script>
@@ -10,18 +10,30 @@ function loadDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = "Procesando ...";
-      var rpta=JSON.parse(this.responseText);
-      var myArray = getArrayLastValue(rpta);
-      myArray.sort(function(a,b){return b.value - a.value});
-      console.log(myArray);
+      document.getElementById("demo").innerHTML="procesando info...";
+      var data= JSON.parse(this.responseText);
+      var myArray=getArrayLastValue(data);
+      myArray.sort(function(a,b){return b.value-a.value});
+      for(var i=0;i<10;i++){
+        console.log(myArray[i]);
+      }
     }
   };
-  xhttp.open("GET","covid_peru_complete.json", true);
+  xhttp.open("GET", "data.json", true);
   xhttp.send();
 }
-function getArrayLastValue(data){
-  
+  function getArrayLastValue(dat){
+    var myArray=[];
+    for(var i in dat){
+      var regi=dat[i].region;
+      var confirmedArray=dat[i].confirmed;
+      var last=confirmedArray[confirmedArray.length -1];
+      var object ={
+        name: regi, value: last.value
+      };
+      myArray.push(object);
+  };
+  return myArray;
 }
 </script>
 
