@@ -20,23 +20,23 @@
               var name=jdata[i].region;
               if(name=="Arequipa"){
                 var confirmed=jdata[i].confirmed;
-              for(j in confirmed){
-                var element=[];
-                element[element.length]=confirmed[j].date;
-                element[element.length]=parseInt(confirmed[j].value);
-                myArray[myArray.length]=element;
+                for(j in confirmed){
+                  var element=[];
+                  element[element.length]=confirmed[j].date;
+                  element[element.length]=parseInt(confirmed[j].value);
+                  myArray[myArray.length]=element;
+                }
               }
             }
-          }
           var data=new google.visulization.DataTable();
           data.addColum('string','fecha');
           data.addColum('number','confirmados');
           data.addRows(myArray);
-           var options = {'title':'REGION AREQUIPA',
+          var options = {'title':'REGION AREQUIPA',
                        'width':400,
                        'height':300};
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
         }
       }
        xhttp.open("GET","covid_peru_complete.json",true);
