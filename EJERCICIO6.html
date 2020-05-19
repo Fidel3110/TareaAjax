@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        // Create the data table.
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange=function(){
+          if(this.readyState==4&& this.status==200){
+            var jdata=JSON.parse(this.responseText);
+            myArray=[];
+            for(i in jdata){
+              var name=jdata[i].region;
+              if(name=="Arequipa"){
+                var confirmed=jdata[i].confirmed;
+                for(j in confirmed){
+                  var element=[];
+                  element[element.length]=confirmed[j].date;
+                  element[element.length]=parseInt(confirmed[j].value);
+                  myArray[myArray.length]=element;
+                }
+              }
+            }
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows(myArray);
+            // Set chart options
+            var options = {'title':'CRECIMIENTO DE REGIONES',
+                           'width':400,
+                           'height':300};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
