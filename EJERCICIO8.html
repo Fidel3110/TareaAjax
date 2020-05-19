@@ -11,6 +11,13 @@
           if(this.readyState==4&& this.status==200){
             var jdata=JSON.parse(this.responseText);
             myArray=[];
+            for(i in jdata){
+              var name=jdata[i].region;
+              for(var i=0; i<rpta.length;i++){
+                var regi = rpta[i].region;
+                document.writeln(rpta[i].region+ " - ");
+              }
+            }
           var data = google.visualization.arrayToDataTable(myArray);
           var options = {
             title: 'CRECIMIENTO REGIONES',
